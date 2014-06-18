@@ -47,4 +47,5 @@ print (samples.min(), samples.mean(), samples.max())
 if samples.min() >0:
     samples = samples * 2.0 - 1.0
 viewer = make_viewer(samples, grid_shape=grid_shape, is_color=is_color)
-viewer.show()
+viewer.save('~/adversarial/samples.png')
+#viewer.show()

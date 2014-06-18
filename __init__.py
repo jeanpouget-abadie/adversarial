@@ -32,8 +32,8 @@ class AdversaryPair(Model):
     def __init__(self, generator, discriminator, inferer=None,
                  inference_monitoring_batch_size=128,
                  monitor_generator=True,
-                 monitor_discriminator=True,
-                 monitor_inference=True,
+                 monitor_discriminator=False,  # True,
+                 monitor_inference=False, # True,
                  shrink_d = 0.):
         Model.__init__(self)
         self.__dict__.update(locals())
@@ -88,8 +88,9 @@ class AdversaryPair(Model):
             i_ch.update(self.inferer.get_monitoring_channels((sample, noise)))
 
         if self.monitor_generator:
-            for key in g_ch:
-                rval['gen_' + key] = g_ch[key]
+            rval['gen_ll'] = g_ch['ll']
+            # for key in g_ch:
+            #     rval['gen_' + key] = g_ch[key]
         if self.monitor_discriminator:
             for key in d_ch:
                 rval['dis_on_data_' + key] = d_samp_ch[key]
